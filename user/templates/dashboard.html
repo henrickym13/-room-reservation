@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2>Bem-vindo, {{ user.username }}!</h2>
+                </div>
+                <div class="card-body">
+                    <p>Você está logado como <strong>{{ user.username }}</strong>.</p>
+
+                    {% if user.groups.all %}
+                        <p>Seu perfil de usuário é:
+                            <ul>
+                                {% for group in user.groups.all %}
+                                    <li>{{ group.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    {% else %}
+                        <p>Você ainda não possui um perfil definido.</p>
+                    {% endif %}
+
+                    <p>Ações disponíveis:</p>
+                    <ul>
+                        <li><a href="#">Editar Perfil</a></li>
+                        <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link" style="text-decoration: none; padding: 0;">
+                                Logout
+                            </button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
