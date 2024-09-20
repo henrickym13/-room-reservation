@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Editar Sala</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+    <a href="{% url 'room_list' %}" class="btn btn-secondary mt-3">Cancelar e Voltar para a Lista de Salas</a>
+</div>
+{% endblock %}

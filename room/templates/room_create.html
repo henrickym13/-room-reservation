@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center rounded" style="width: 40vw;">
+    <form method="post">
+        <h2 class="text-center">Criar Sala</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <button type="submit" class="btn btn-success">Criar Sala</button>
+            <a href="{% url 'room_list' %}" class="btn btn-secondary ">Cancelar e Voltar para a Lista de Salas</a>
+        </p>
+    </form>
+</div>
+{% endblock %}
