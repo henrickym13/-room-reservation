@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # my apps
     'user',
     'room',
+    'reserve',
 ]
 
 MIDDLEWARE = [
