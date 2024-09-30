@@ -4,7 +4,6 @@ from .models import Reserve
 from .forms import ReserveForm
 
 
-# Create your views here.
 @login_required
 def reserve_create(request):
     if request.method == 'POST':

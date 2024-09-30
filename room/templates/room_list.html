@@ -20,6 +20,7 @@
                 <td>{{ room.capacity }}</td>
                 <td>{{ room.description }}</td>
                 <td>
+                    <a href="{% url 'room_availability' room.id %}" class="btn btn-primary btn-sm">Ver Disponibilidade</a>
                     <a href="{% url 'update_room' room.id %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'delete_room' room.id %}" class="btn btn-sm btn-danger">Excluir</a>
                 </td>

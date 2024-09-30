@@ -7,4 +7,6 @@ urlpatterns = [
     path('room/create/', views.create_room, name='create_room'),
     path('room/update/<int:room_id>/', views.update_room, name='update_room'),
     path('room/delete/<int:room_id>', views.delete_room, name='delete_room'),
+    path('room/availability/<int:room_id>/', views.room_availability, name='room_availability'),
+    path('room/events/<int:room_id>/', views.event_room_availability, name='room_event'),
 ]

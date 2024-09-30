@@ -9,8 +9,8 @@ class ReserveForm(forms.ModelForm):
         widgets = {
             'room': forms.Select(choices=Reserve.objects.all(), attrs={'class': 'form-control'}),
             'date': forms.SelectDateWidget(attrs={'style': 'width: 27%; display: inline; margin-left: 12px;'}),
-            'start_time': forms.TimeInput(attrs={'class': 'form-control'}),
-            'end_time': forms.TimeInput(attrs={'class': 'form-control'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
         labels = {
             'room': 'Sala',
