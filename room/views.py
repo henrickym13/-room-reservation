@@ -53,6 +53,12 @@ def create_room(request):
 
 
 @login_required
+def room_detail(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    return render(request, 'room_detail.html', {'room': room})
+
+
+@login_required
 @user_passes_test(is_admin)
 def update_room(request, room_id):
     room = get_object_or_404(Room, id=room_id)

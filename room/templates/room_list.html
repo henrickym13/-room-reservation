@@ -9,7 +9,9 @@
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Capacidade</th>
+                <th scope="col">Localização</th>
                 <th scope="col">Descrição</th>
+                <th scope="col">Equipamentos</th>
                 <th scope="col">Ações</th>
             </tr>
         </thead>
@@ -18,9 +20,12 @@
             <tr>
                 <td>{{ room.name }}</td>
                 <td>{{ room.capacity }}</td>
+                <td>{{ room.location }}</td>
                 <td>{{ room.description }}</td>
+                <td>{{ room.equipments }}</td>
                 <td>
                     <a href="{% url 'room_availability' room.id %}" class="btn btn-primary btn-sm">Ver Disponibilidade</a>
+                    <a href="{% url 'room_detail' room.id %}" class="btn btn-sm btn-info">Informações</a>
                     <a href="{% url 'update_room' room.id %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'delete_room' room.id %}" class="btn btn-sm btn-danger">Excluir</a>
                 </td>

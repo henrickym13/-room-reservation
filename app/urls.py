@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('room.urls')),
     path('', include('reserve.urls')),
+    path('', include('equipment.urls')),
 ]

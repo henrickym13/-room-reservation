@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'user',
     'room',
     'reserve',
+    'equipment',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ room.name }}</h2>
+<p><strong>Capacidade:</strong> {{ room.capacity }} pessoas</p>
+<p><strong>Localização:</strong> {{ room.location }}</p>
+<p><strong>Equipamentos:</strong></p>
+<ul>
+    {% for equipament in room.equipments.all %}
+        <li>{{ equipament.name }}</li>
+    {% empty %}
+        <li>Sem equipamentos</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

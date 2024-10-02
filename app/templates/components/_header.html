@@ -10,6 +10,7 @@
                 <li class="nav-item"><a class="nav-link text-white">Olá, {{ user.username }}</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{% url 'room_list' %}">Salas</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{% url 'reserve_list' %}">Reservas</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{% url 'equipment_list' %}">Equipamentos</a></li>
                 <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link">
