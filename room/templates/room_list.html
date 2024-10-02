@@ -22,7 +22,7 @@
                 <td>{{ room.capacity }}</td>
                 <td>{{ room.location }}</td>
                 <td>{{ room.description }}</td>
-                <td>{% for equipment in room.equipments.all %}{{ equipment }} {% endfor %}</td>
+                <td>{% for equipment in room.equipments.all %}{{ equipment }}, {% endfor %}</td>
                 <td>
                     <a href="{% url 'room_availability' room.id %}" class="btn btn-primary btn-sm">Ver Disponibilidade</a>
                     <a href="{% url 'room_detail' room.id %}" class="btn btn-sm btn-info">Informações</a>

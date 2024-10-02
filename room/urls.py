@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 
@@ -11,3 +13,6 @@ urlpatterns = [
     path('room/availability/<int:room_id>/', views.room_availability, name='room_availability'),
     path('room/events/<int:room_id>/', views.event_room_availability, name='room_event'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

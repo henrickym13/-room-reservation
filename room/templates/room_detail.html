@@ -6,11 +6,15 @@
 <p><strong>Localização:</strong> {{ room.location }}</p>
 <p><strong>Equipamentos:</strong></p>
 <ul>
-    {% for equipament in room.equipments.all %}
-        <li>{{ equipament.name }}</li>
+    {% for equipment in room.equipments.all %}
+        <li>{{ equipment.name }}</li>
     {% empty %}
         <li>Sem equipamentos</li>
     {% endfor %}
 </ul>
-
+{% if room.photo %}
+    <img src="{{ room.photo.url }}" alt="Foto da sala" class="img-fluid">
+{% else %}
+    <p>Sem foto disponível.</p>
+{% endif %}
 {% endblock %}

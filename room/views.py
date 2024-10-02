@@ -43,7 +43,7 @@ def event_room_availability(request, room_id):
 @user_passes_test(is_admin)
 def create_room(request):
     if request.method == 'POST':
-        form = RoomForm(request.POST)
+        form = RoomForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('room_list')
@@ -63,7 +63,7 @@ def room_detail(request, room_id):
 def update_room(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     if request.method == 'POST':
-        form = RoomForm(request.POST, instance=room)
+        form = RoomForm(request.POST, request.FILES, instance=room)
         if form.is_valid():
             form.save()
             return redirect('room_list')

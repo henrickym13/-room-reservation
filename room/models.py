@@ -8,6 +8,7 @@ class Room(models.Model):
     location = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     equipments = models.ManyToManyField(Equipment, blank=True)
+    photo = models.ImageField(upload_to='room_photos', blank=True, null=True)
 
     def __str__(self):
         return self.name
