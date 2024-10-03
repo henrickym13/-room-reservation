@@ -37,7 +37,7 @@ def event_room_availability(request, room_id):
             'color': 'red',
         })
     return JsonResponse(eventos, safe=False)
-    
+       
 
 @login_required
 @user_passes_test(is_admin)

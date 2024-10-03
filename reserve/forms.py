@@ -18,3 +18,18 @@ class ReserveForm(forms.ModelForm):
             'start_time': 'Hórario Inicial',
             'end_time': 'Hórario Final',
         }
+
+
+class SeachAvailabilityForm(forms.Form):
+    data = forms.DateTimeField(
+        widget = forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        label = 'Data'
+    )
+    start_time = forms.TimeField(
+        widget = forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+        label = 'Horário Inícial'
+    )
+    end_time = forms.TimeField(
+        widget = forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+        label = 'Horário Final'
+    )

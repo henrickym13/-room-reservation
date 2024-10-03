@@ -13,3 +13,6 @@ class Reserve(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.room.name} ({self.date})'
+    
+    class Meta:
+        ordering = ['date']

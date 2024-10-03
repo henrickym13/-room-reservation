@@ -1,0 +1,57 @@
+{% include 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Buscar Salas Disponíveis</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <p>
+                        <div class="form-group">
+                            {{ form.data.label_tag }}
+                            {{ form.data }}
+                        </div>
+                        </p>
+                        <p>
+                        <div class="form-group">
+                            {{ form.start_time.label_tag }}
+                            {{ form.start_time }}
+                        </div>
+                        </p>
+                        <p>
+                        <div class="form-group">
+                            {{ form.end_time.label_tag }}
+                            {{ form.end_time }}
+                        </div>
+                        </p>
+                        <p><button type="submit" class="btn btn-primary">Buscar</button></p>
+                    </form>
+
+                    {% if rooms_availability is not None %}
+                    <h2 class="mt-5 text-center">Salas Disponíveis</h2>
+                    {% if rooms_availability %}
+                    <ul class="list-group mt-3">
+                        {% for room in rooms_availability %}
+                        <li class="list-group-item">
+                            <span class="float-start">Nome: {{ room.name }}</span>
+                            <span class="float-end">Capacidade: {{ room.capacity }}</span>
+                        </li>
+                        <p></p>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="mt-3">Nenhuma sala disponível para o período selecionado.</p>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p></p>
+{% endblock %}
