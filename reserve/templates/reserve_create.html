@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
-
+ 
 {% block content %}
-<div class="container d-flex justify-content-center rounded" style="width: 40vw;">
-    <form method="post">
-        <h2 class="text-center">Criar Sala</h2>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p>
-            <button type="submit" class="btn btn-success">Reservar</button>
-            <a href="{% url 'reserve_list' %}" class="btn btn-secondary ">Cancelar e Voltar para a Lista de Reservas</a>
-        </p>
-    </form>
+<div class="container d-flex justify-content-center" style="width: 40vw;">
+    <div class="col md-7">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Criar Sala</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p>
+                        <button type="submit" class="btn btn-primary">Reservar</button>
+                        <a href="{% url 'my_reserves' %}" class="btn btn-secondary ">Cancelar e Voltar para a Lista de Reservas</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

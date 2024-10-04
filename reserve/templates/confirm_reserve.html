@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Confirmar Reserva</h1>
+    <p>Deseja confirmar a reserva da sala <strong>{{ reserve.room.name }}</strong> para o dia <strong>{{ reserve.date }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Confirmar</button>
+        <a href="{% url 'reserve_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

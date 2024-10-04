@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Minhas Reservas</h2>
+    <a href="{% url 'reserve_create' %}" class="col-sm btn btn-primary float-right mb-3">Criar Nova Reserva</a>
+    <a href="{% url 'seach_availability' %}" class=" col-sm btn btn-info float-right mb-3">Procurar Disponibilidade</a>
+
+    <table class="table table-striped table-bordered table-responsive">
+        <thead class="table-dark">
+            <tr>
+                <th>Sala</th>
+                <th>Data</th>
+                <th>Horário Início</th>
+                <th>Horário Fim</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserve in reserves %}
+            <tr>
+                <td>{{ reserve.room.name }}</td>
+                <td>{{ reserve.date }}</td>
+                <td>{{ reserve.start_time }}</td>
+                <td>{{ reserve.end_time }}</td>
+                <td>
+                    <a href="{% url 'cancel_reserve' reserve.id %}" class="btn btn-danger btn-sm">Cancelar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

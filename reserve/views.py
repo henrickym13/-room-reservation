@@ -1,8 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from .models import Reserve
 from .forms import ReserveForm, SeachAvailabilityForm
 from room.models import Room
+
+
+def is_admin(user):
+    return user.is_superuser
 
 
 @login_required
@@ -20,9 +25,19 @@ def reserve_create(request):
 
 
 @login_required
+@user_passes_test(is_admin)
 def reserve_list(request):
-    reserves = Reserve.objects.filter(user=request.user)
-    return render(request, 'reserve_list.html', {'reserves': reserves})
+    reservations_pending = Reserve.objects.filter(status='pendente')
+    reservations_confirmed = Reserve.objects.filter(status='confirmada')
+    return render(request, 'reserve_list.html', {
+        'reservations_pending': reservations_pending,
+        'reservations_confirmed': reservations_confirmed})
+
+
+@login_required
+def my_reserves(request):
+    reserves = Reserve.objects.filter(user=request.user).exclude(status='cancelada')
+    return render(request, 'my_reserves.html', {'reserves': reserves})
 
 
 @login_required
@@ -48,3 +63,26 @@ def seach_availability(request):
     return render(request, 'seach_availability.html', {
         'form': form,
         'rooms_availability': room_availability})
+
+
+@login_required
+@user_passes_test(is_admin)
+def confirm_reservation(request, reserve_id):
+    reserve = get_object_or_404(Reserve, id=reserve_id)
+    if request.method == 'POST':
+        reserve.status = 'confirmada'
+        reserve.save()
+        return redirect('reserve_list')
+    
+    return render(request, 'confirm_reserve.html', {'reserve': reserve})
+
+
+@login_required
+def cancel_reservation(request, reserve_id):
+    reserve = get_object_or_404(Reserve, id=reserve_id, user=request.user)
+    if request.method == 'POST':
+        reserve.status = 'cancelada'
+        reserve.save()
+        return redirect('my_reserves')
+    
+    return render(request, 'cancel_reserve.html', {'reserve': reserve})
