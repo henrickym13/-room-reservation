@@ -33,8 +33,3 @@ def admin_view(request):
 def funcionario_view(request):
     # Somente usuários do grupo "Funcionários" podem acessar essa view
     return render(request, 'teste02.html')
-
-
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard.html')
