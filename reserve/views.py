@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import Reserve
 from .forms import ReserveForm, SeachAvailabilityForm
 from room.models import Room
+from .utils import email_send
 
 
 def is_admin(user):
@@ -18,7 +19,7 @@ def reserve_create(request):
             reserve = form.save(commit=False)
             reserve.user = request.user
             reserve.save()
-            return redirect('reserve_list')
+            return redirect('my_reserves')
     else:
         form = ReserveForm()
     return render(request, 'reserve_create.html', {'form': form})
@@ -72,6 +73,12 @@ def confirm_reservation(request, reserve_id):
     if request.method == 'POST':
         reserve.status = 'confirmada'
         reserve.save()
+
+        # send confirmation e-mail
+        title = 'Confirmação de Reserva'
+        message = f'Sua reserva da sala {reserve.room.name} no dia {reserve.date} foi confirmada!'
+        recipients = [reserve.user.email]
+        email_send(title, message, recipients)
         return redirect('reserve_list')
     
     return render(request, 'confirm_reserve.html', {'reserve': reserve})
@@ -83,6 +90,11 @@ def cancel_reservation(request, reserve_id):
     if request.method == 'POST':
         reserve.status = 'cancelada'
         reserve.save()
+
+        title = 'Cancelamento de Reserva'
+        message = f'Sua reserva da sala {reserve.room.name} no dia {reserve.date} foi cancelada.'
+        recipients = [reserve.user.email]
+        email_send(title, message, recipients)
         return redirect('my_reserves')
     
     return render(request, 'cancel_reserve.html', {'reserve': reserve})

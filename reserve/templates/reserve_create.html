@@ -5,7 +5,7 @@
     <div class="col md-7">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Criar Sala</h4>
+                <h4 class="mb-0">Nova Reserva</h4>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -13,7 +13,7 @@
                     {{ form.as_p }}
                     <p>
                         <button type="submit" class="btn btn-primary">Reservar</button>
-                        <a href="{% url 'my_reserves' %}" class="btn btn-secondary ">Cancelar e Voltar para a Lista de Reservas</a>
+                        <a href="{% url 'my_reserves' %}" class="btn btn-secondary float-end">Cancelar e Voltar para a Lista de Reservas</a>
                     </p>
                 </form>
             </div>
