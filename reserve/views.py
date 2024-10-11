@@ -98,3 +98,16 @@ def cancel_reservation(request, reserve_id):
         return redirect('my_reserves')
     
     return render(request, 'cancel_reserve.html', {'reserve': reserve})
+
+
+@login_required
+@user_passes_test(is_admin)
+def admin_booking_history(request):
+    reserves = Reserve.objects.filter(user=request.user).order_by('date')
+    return render(request, 'index.html', {'reserves': reserves})
+
+
+@login_required
+def user_booking_history(request):
+    reserves = Reserve.objects.filter(user=request.user).order_by('date')
+    return render(request, 'index.html', {'reserves': reserves})

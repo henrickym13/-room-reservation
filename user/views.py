@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import Group
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 def register(request):
@@ -19,17 +17,3 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
-
-
-@login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administradores').exists())
-def admin_view(request):
-    # Somente usuários do grupo "Administradores" podem acessar essa view
-    return render(request, 'teste01.html')
-
-
-@login_required
-@user_passes_test(lambda u: u.groups.filter(name='Funcionários').exists())
-def funcionario_view(request):
-    # Somente usuários do grupo "Funcionários" podem acessar essa view
-    return render(request, 'teste02.html')
