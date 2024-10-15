@@ -11,53 +11,53 @@
         <h4>Total de Reservas Confirmadas: {{ total_reserves }}</h4>
     </div>
 
-    <!-- Salas mais usadas -->
-    <div class="card mt-3">
-        <div class="card-header">
-            <h5>Salas Mais Usadas</h5>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Salas Mais Utilizadas</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="reservasPorSalaChart"></canvas>
+                </div>
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-            {% for room in reservations_by_room %}
-            <li class="list-group-item">
-                {{ room.room__name }} - {{ room.total }} reservas
-            </li>
-            {% empty %}
-            <li class="list-group-item">Nenhuma reserva encontrada.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Gráfico de Reservas por Mês -->
-    <div class="card mt-3">
-        <div class="card-header">
-            <h5>Reservas por Mês</h5>
+        <div class="col-md-6 text-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Frequência de Reservas por Mês</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="reservasPorMesChart"></canvas>
+                </div>
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-            {% for month in reservations_by_month %}
-            <li class="list-group-item">
-                Mês {{ month.month }}: {{ month.total }} reservas
-            </li>
-            {% empty %}
-            <li class="list-group-item">Nenhuma reserva encontrada.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="card mt-3">
-        <div class="card-header">
-            <h5>Gráfico de Reservas por Sala</h5>
-        </div>
-        <div class="card-body">
-            <canvas id="reservasPorSalaChart"></canvas>
+        <div class="col-md-6 text-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Horário de Pico de Reservas</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="horarioPicoChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <script>
-        var labels_data = [{% for room in reservations_by_room %}'{{ room.room__name }}',{% endfor %}];
-        console.log(labels_data)
-        var reservations_data = [{% for room in reservations_by_room %}{{ room.total }},{% endfor %}];
-        console.log(reservations_data)
-    </script>
 </div>
-<script src="{% static 'js/charts.js' %}"></script>
+
+<script>
+    /* Reservas por Sala */
+    var labels_data = [{% for room in reservations_by_room %}'{{ room.room__name }}', {% endfor %}];
+    var reservations_data = [{% for room in reservations_by_room %} {{ room.total }}, {% endfor %}];
+
+    /* Horário de Pico de Reservas */
+    var lb_data = [{% for hour in peak_times %} '{{ hour.hour }}:00', {% endfor %}];
+    var peak_data = [{% for hour in peak_times %} {{ hour.total }}, {% endfor %}];
+
+    /* Frequência de Reservas por Mês */
+    var lbl_data = [{% for month in reservations_by_month %} '{{ month.month }}', {% endfor %}];
+    var reserve_data = [{% for month in reservations_by_month %} {{ month.total }}, {% endfor %}];
+</script>
+
+<script src="{% static 'js/charts2.js' %}"></script>
 {% endblock %}

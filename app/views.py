@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from reserve.models import Reserve
 from django.db.models import Count
-from django.db.models.functions import ExtractMonth
+from django.db.models.functions import ExtractMonth, ExtractHour
 
 
 def is_admin(user):
@@ -26,10 +26,13 @@ def usage_report(request):
     most_used_room = reservations_by_room.first() if reservations_by_room else None
     reservations_by_month = Reserve.objects.filter(status='confirmada').annotate(
        month=ExtractMonth('date')).values('month').annotate(total=Count('id')).order_by('month')
+    peak_times = Reserve.objects.filter(status='confirmada').annotate(
+        hour=ExtractHour('start_time')).values('hour').annotate(total=Count('id')).order_by('-total')
     
     return render(request, 'usage_report.html', {
         'total_reserves': total_reserves,
         'reservations_by_room': reservations_by_room,
         'most_used_room': most_used_room,
         'reservations_by_month': reservations_by_month,
+        'peak_times': peak_times,
     })
