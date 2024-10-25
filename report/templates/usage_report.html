@@ -6,10 +6,12 @@
     <h1>Painel Administrativo - Relatórios de Uso das Salas</h1>
     <hr>
 
+    {% include 'filter.html' %}
+
     <!-- Total de reservas confirmadas -->
-    <div class="alert alert-info">
+    <p><div class="alert alert-info">
         <h4>Total de Reservas Confirmadas: {{ total_reserves }}</h4>
-    </div>
+    </div></p>
 
     <a href="{% url 'exportar_relatorio_completo' %}" class="btn btn-primary">Gerar Relatório PDF</a>
 

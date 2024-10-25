@@ -1,0 +1,57 @@
+<form method="GET" action="">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="room">Sala:</label>
+            <select name="room" id="room" class="form-control">
+                <option value="">Todas as Salas</option>
+                {% for room in rooms %}
+                    <option value="{{ room.id }}" {% if request.GET.room == room.id|stringformat:"s" %}selected{% endif %}>{{ room.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="user">Usuário:</label>
+            <select name="user" id="user" class="form-control">
+                <option value="">Todos os Usuários</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if request.GET.user == user.id|stringformat:"s" %}selected{% endif %}>{{ user.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="date_start">Dia</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{ request.GET.date }}">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<h3 class="mt-5">Reservas Filtradas</h3>
+<table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Sala</th>
+            <th>Usuário</th>
+            <th>Data</th>
+            <th>Hora de Início</th>
+            <th>Hora de Fim</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.room.name }}</td>
+                <td>{{ reservation.user.username }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.start_time }}</td>
+                <td>{{ reservation.end_time }}</td>
+                <td>{{ reservation.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Nenhuma reserva encontrada com os filtros aplicados.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

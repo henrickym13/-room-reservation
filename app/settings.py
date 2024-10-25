@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'room',
     'reserve',
     'equipment',
+    'report',
 ]
 
 MIDDLEWARE = [
