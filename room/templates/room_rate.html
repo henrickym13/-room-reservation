@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Avaliar Sala: {{ room.name }}</h2>
+
+    <form method="POST" class="bg-light p-4 rounded shadow">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_score">Pontuação:</label>
+            {{ form.score }}
+        </div>
+
+        <p><div class="form-group">
+            <label for="id_comment">Comentário:</label>
+            {{ form.comment }}
+        </div></p>
+
+        <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+        <a href="{% url 'room_detail' room.id %}" class="btn btn-secondary ml-2">Voltar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,20 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ room.name }}</h2>
-<p><strong>Capacidade:</strong> {{ room.capacity }} pessoas</p>
-<p><strong>Localização:</strong> {{ room.location }}</p>
-<p><strong>Equipamentos:</strong></p>
-<ul>
-    {% for equipment in room.equipments.all %}
-        <li>{{ equipment.name }}</li>
-    {% empty %}
-        <li>Sem equipamentos</li>
-    {% endfor %}
-</ul>
-{% if room.photo %}
-    <img src="{{ room.photo.url }}" alt="Foto da sala" class="img-fluid">
-{% else %}
-    <p>Sem foto disponível.</p>
-{% endif %}
+<div class="container mt-5">
+    <div class="alert alert-info">
+        <h4>Sala: {{ room.name }}</h4>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Capacidade:</strong> {{ room.capacity }} pessoas</p>
+            <p><strong>Localização:</strong> {{ room.location }}</p>
+            <p><strong>Equipamentos:</strong></p>
+            <ul>
+                {% for equipment in room.equipments.all %}
+                    <li>{{ equipment.name }}</li>
+                {% empty %}
+                    <li>Sem equipamentos</li>
+                {% endfor %}
+            </ul>
+            {% if room.photo %}
+                <img src="{{ room.photo.url }}" alt="Foto da sala" class="img-fluid rounded mt-3">
+            {% else %}
+                <p>Sem foto disponível.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <h4>Média de Avaliação: 
+            <span class="badge badge-primary">{{ room.average_rating|floatformat:1 }} / 5
+                <i class="bi bi-star-fill fs-6"></i>
+            </span>
+        </h4>
+    </div>
+
+    <h3 class="mt-4">Avaliações</h3>
+    {% if ratings %}
+        <ul class="list-group mb-4">
+            {% for rating in ratings %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>{{ rating.user.username }}</strong>
+                        <span class="badge badge-warning">{{ rating.score }} estrelas</span>
+                    </div>
+                    <p class="mb-1">{{ rating.comment }}</p>
+                    <small class="text-muted">{{ rating.date|date:"d/m/Y H:i" }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Esta sala ainda não possui avaliações.</p>
+    {% endif %}
+
+    <a href="{% url 'rate_room' room.id %}" class="btn btn-primary">Avaliar Sala</a>
+</div>
 {% endblock %}

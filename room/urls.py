@@ -12,6 +12,7 @@ urlpatterns = [
     path('room/delete/<int:room_id>', views.delete_room, name='delete_room'),
     path('room/availability/<int:room_id>/', views.room_availability, name='room_availability'),
     path('room/events/<int:room_id>/', views.event_room_availability, name='room_event'),
+    path('room/<int:room_id>/rate/', views.rate_room, name='rate_room'),
 ]
 
 if settings.DEBUG:

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import JsonResponse
-from .models import Room
-from .forms import RoomForm
+from .models import Room, Rating
+from .forms import RoomForm, RatingForm
 from reserve.models import Reserve
+from django.contrib import messages
 
 
 # Create your views here.
@@ -55,7 +56,12 @@ def create_room(request):
 @login_required
 def room_detail(request, room_id):
     room = get_object_or_404(Room, id=room_id)
-    return render(request, 'room_detail.html', {'room': room})
+    ratings = room.ratings.all()
+    context = {
+        'room': room,
+        'ratings': ratings,
+    }
+    return render(request, 'room_detail.html', context)
 
 
 @login_required
@@ -80,3 +86,25 @@ def delete_room(request, room_id):
         room.delete()
         return redirect('room_list')
     return render(request, 'room_delete.html', {'room' : room})
+
+
+@login_required
+def rate_room(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.room = room
+            rating.user = request.user
+            rating.save()
+            messages.success(request, 'Avaliação enviada com sucesso!')
+            return redirect('room_detail', room_id=room.id)
+    else:
+        form = RatingForm()
+    
+    context = {
+        'room': room,
+        'form': form,
+    }
+    return render(request, 'room_rate.html', context)
