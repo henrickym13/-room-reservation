@@ -7,24 +7,29 @@
     </div>
     
     <div class="card mb-4">
-        <div class="card-body">
-            <p><strong>Capacidade:</strong> {{ room.capacity }} pessoas</p>
-            <p><strong>Localização:</strong> {{ room.location }}</p>
-            <p><strong>Equipamentos:</strong></p>
-            <ul>
-                {% for equipment in room.equipments.all %}
-                    <li>{{ equipment.name }}</li>
-                {% empty %}
-                    <li>Sem equipamentos</li>
-                {% endfor %}
-            </ul>
-            {% if room.photo %}
-                <img src="{{ room.photo.url }}" alt="Foto da sala" class="img-fluid rounded mt-3">
-            {% else %}
-                <p>Sem foto disponível.</p>
-            {% endif %}
+        <div class="row card-body">
+            <div class="col-md-8">
+                <p><strong>Capacidade:</strong> {{ room.capacity }} pessoas</p>
+                <p><strong>Localização:</strong> {{ room.location }}</p>
+                <p><strong>Equipamentos:</strong></p>
+                <ul>
+                    {% for equipment in room.equipments.all %}
+                        <li>{{ equipment.name }}</li>
+                    {% empty %}
+                        <li>Sem equipamentos</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-4 text-center">
+                {% if room.photo %}
+                    <img src="{{ room.photo.url }}" alt="Foto da sala" class="img-fluid rounded mt-3">
+                {% else %}
+                    <p>Sem foto disponível.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
+    
 
     <div class="alert alert-info">
         <h4>Média de Avaliação: 
